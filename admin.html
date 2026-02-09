@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Elektrum Admin Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,9 +19,9 @@
         }
     </script>
     <style>
-        body { background: #050505 url('bg.jpg') no-repeat center center/cover; font-family: 'Rajdhani', sans-serif; }
-        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: -1; }
-        .glass { background: rgba(18, 18, 18, 0.9); backdrop-filter: blur(12px); border: 1px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        body { background: #050505 url('bg.jpg') no-repeat center center/cover; font-family: 'Rajdhani', sans-serif; background-attachment: fixed; }
+        body::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: -1; position: fixed; }
+        .glass { background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(12px); border: 1px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .neon-input { background: #0f0f0f; border: 1px solid #333; color: white; padding: 10px; width: 100%; outline: none; transition: 0.3s; font-family: 'Rajdhani'; font-size: 16px; border-radius: 4px; }
         .neon-input:focus { border-color: #bc13fe; box-shadow: 0 0 10px rgba(188,19,254,0.2); }
         .btn { transition: all 0.3s; text-transform: uppercase; font-family: 'Orbitron'; letter-spacing: 1px; }
@@ -34,94 +34,94 @@
         ::-webkit-scrollbar-thumb:hover { background: #bc13fe; }
     </style>
 </head>
-<body class="text-white min-h-screen flex flex-col items-center justify-center p-4">
+<body class="text-white min-h-screen flex flex-col p-2 lg:p-4 lg:items-center lg:justify-center">
 
-    <div id="loginOverlay" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
-        <h1 class="font-cyber text-5xl text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-cyan mb-8 drop-shadow-[0_0_15px_#bc13fe]">ELEKTRUM ADMIN</h1>
-        <div class="glass p-10 rounded-2xl w-96 flex flex-col gap-6 border border-neon-purple/30">
+    <div id="loginOverlay" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center p-4">
+        <h1 class="font-cyber text-4xl lg:text-5xl text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-neon-cyan mb-8 drop-shadow-[0_0_15px_#bc13fe]">ELEKTRUM ADMIN</h1>
+        <div class="glass p-6 lg:p-10 rounded-2xl w-full max-w-sm flex flex-col gap-6 border border-neon-purple/30">
             <input type="password" id="passInput" placeholder="ACCESS KEY" class="neon-input text-center text-xl tracking-widest">
             <button onclick="auth()" class="btn w-full bg-neon-purple text-white py-4 rounded font-bold hover:bg-white hover:text-black">LOGIN</button>
         </div>
-        <div class="mt-4 text-gray-600 text-xs font-mono">SECURE CONNECTION v2.0</div>
+        <div class="mt-4 text-gray-600 text-xs font-mono">SECURE CONNECTION v2.1 Mobile</div>
     </div>
 
-    <div id="app" class="w-full max-w-[1400px] h-[90vh] hidden flex-col">
-        <header class="flex justify-between items-center mb-6 glass p-6 rounded-xl border-b-2 border-neon-cyan">
+    <div id="app" class="w-full max-w-[1400px] hidden flex-col pb-20 lg:pb-0 lg:h-[90vh] mx-auto mt-4 lg:mt-0">
+        <header class="flex flex-col lg:flex-row justify-between items-center mb-6 glass p-4 lg:p-6 rounded-xl border-b-2 border-neon-cyan gap-4">
             <div class="flex items-center gap-4">
-                <div class="w-3 h-12 bg-neon-purple rounded-full"></div>
+                <div class="w-2 h-10 lg:w-3 lg:h-12 bg-neon-purple rounded-full"></div>
                 <div>
-                    <h2 class="font-cyber text-3xl text-white">CONTROL PANEL</h2>
+                    <h2 class="font-cyber text-2xl lg:text-3xl text-white">CONTROL PANEL</h2>
                     <div class="text-neon-cyan text-xs font-mono tracking-widest">CONNECTED: GOL131111-CTRL</div>
                 </div>
             </div>
-            <button onclick="sync()" id="syncBtn" class="btn flex items-center gap-2 bg-dark-800 border border-neon-cyan text-neon-cyan px-6 py-3 rounded hover:bg-neon-cyan hover:text-black">
+            <button onclick="sync()" id="syncBtn" class="btn w-full lg:w-auto flex items-center justify-center gap-2 bg-dark-800 border border-neon-cyan text-neon-cyan px-6 py-3 rounded hover:bg-neon-cyan hover:text-black">
                 <i data-lucide="refresh-cw"></i> SYNC DATA
             </button>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:h-full lg:overflow-hidden">
             
-            <div class="glass p-6 rounded-xl flex flex-col border-t-4 border-neon-cyan h-full overflow-hidden">
-                <h3 class="font-cyber text-2xl mb-4 text-white flex items-center gap-3"><i data-lucide="package"></i> CATALOG MANAGER</h3>
+            <div class="glass p-4 lg:p-6 rounded-xl flex flex-col border-t-4 border-neon-cyan overflow-hidden lg:h-full">
+                <h3 class="font-cyber text-xl lg:text-2xl mb-4 text-white flex items-center gap-3"><i data-lucide="package"></i> CATALOG MANAGER</h3>
                 
-                <div class="bg-dark-900/50 p-4 rounded-lg border border-gray-800 mb-4 shrink-0">
-                    <input id="prodCat" placeholder="📂 КАТЕГОРИЯ (Например: VPN, Аккаунты)" class="neon-input mb-2 border-neon-cyan/50 text-neon-cyan font-bold">
+                <div class="bg-dark-900/50 p-3 lg:p-4 rounded-lg border border-gray-800 mb-4 shrink-0">
+                    <input id="prodCat" placeholder="📂 КАТЕГОРИЯ (Например: VPN)" class="neon-input mb-2 border-neon-cyan/50 text-neon-cyan font-bold text-sm lg:text-base">
                     
                     <div class="grid grid-cols-2 gap-2 mb-2">
-                        <input id="prodNameRu" placeholder="🇷🇺 Название" class="neon-input">
-                        <input id="prodNameUk" placeholder="🇺🇦 Назва" class="neon-input">
+                        <input id="prodNameRu" placeholder="🇷🇺 Название" class="neon-input text-sm">
+                        <input id="prodNameUk" placeholder="🇺🇦 Назва" class="neon-input text-sm">
                     </div>
                     <div class="grid grid-cols-2 gap-2 mb-2">
-                        <input id="prodDescRu" placeholder="🇷🇺 Описание" class="neon-input">
-                        <input id="prodDescUk" placeholder="🇺🇦 Опис" class="neon-input">
+                        <input id="prodDescRu" placeholder="🇷🇺 Описание" class="neon-input text-sm">
+                        <input id="prodDescUk" placeholder="🇺🇦 Опис" class="neon-input text-sm">
                     </div>
-                    <div class="flex gap-3">
-                        <input id="prodPrice" type="number" placeholder="$$$" class="neon-input w-1/4 text-center font-bold text-xl text-green-400">
-                        <button onclick="addProduct()" class="btn w-3/4 bg-neon-cyan text-black font-bold rounded">SAVE / ADD ITEM</button>
+                    <div class="flex gap-2 lg:gap-3">
+                        <input id="prodPrice" type="number" placeholder="$$$" class="neon-input w-1/3 text-center font-bold text-lg text-green-400">
+                        <button onclick="addProduct()" class="btn w-2/3 bg-neon-cyan text-black font-bold rounded text-sm lg:text-base">SAVE ITEM</button>
                     </div>
                 </div>
 
-                <div id="catalogList" class="space-y-2 overflow-y-auto flex-1 pr-2">
+                <div id="catalogList" class="space-y-2 overflow-y-auto pr-2 h-[300px] lg:h-auto lg:flex-1 border-t border-gray-800 pt-2">
                     </div>
             </div>
 
-            <div class="flex flex-col gap-6 h-full overflow-hidden">
+            <div class="flex flex-col gap-6 lg:h-full lg:overflow-hidden">
                 
-                <div class="glass p-6 rounded-xl border-t-4 border-neon-purple flex-1 flex flex-col overflow-hidden">
-                    <h3 class="font-cyber text-2xl mb-4 text-white flex items-center gap-3"><i data-lucide="users"></i> CLIENTS BASE</h3>
-                    <input type="text" id="searchUser" placeholder="🔎 Поиск по @username..." class="neon-input mb-4" onkeyup="renderUsers()">
+                <div class="glass p-4 lg:p-6 rounded-xl border-t-4 border-neon-purple flex flex-col overflow-hidden lg:flex-1">
+                    <h3 class="font-cyber text-xl lg:text-2xl mb-4 text-white flex items-center gap-3"><i data-lucide="users"></i> CLIENTS BASE</h3>
+                    <input type="text" id="searchUser" placeholder="🔎 Поиск по @username..." class="neon-input mb-4 text-sm" onkeyup="renderUsers()">
                     
-                    <div class="overflow-y-auto flex-1">
+                    <div class="overflow-y-auto h-[250px] lg:h-auto lg:flex-1">
                         <table class="w-full text-left text-sm">
-                            <thead class="text-gray-500 border-b border-gray-700 font-mono text-xs uppercase">
-                                <tr><th class="p-2">User</th><th class="p-2">Balance</th><th class="p-2">Actions</th></tr>
+                            <thead class="text-gray-500 border-b border-gray-700 font-mono text-xs uppercase sticky top-0 bg-[#121212]">
+                                <tr><th class="p-2">User</th><th class="p-2">Bal.</th><th class="p-2">Acts</th></tr>
                             </thead>
                             <tbody id="userList"></tbody>
                         </table>
                     </div>
                 </div>
 
-                <div class="glass p-6 rounded-xl border border-gray-700 shrink-0">
-                    <h3 class="font-cyber text-xl mb-4 text-gray-300 flex items-center gap-2"><i data-lucide="radio"></i> GLOBAL BROADCAST</h3>
+                <div class="glass p-4 lg:p-6 rounded-xl border border-gray-700 shrink-0">
+                    <h3 class="font-cyber text-lg lg:text-xl mb-4 text-gray-300 flex items-center gap-2"><i data-lucide="radio"></i> BROADCAST</h3>
                     
                     <div class="flex gap-2 mb-2">
                         <div class="relative w-1/3">
                             <input type="file" id="imgUpload" class="hidden" onchange="uploadImage()">
-                            <label for="imgUpload" id="uploadLabel" class="btn flex items-center justify-center w-full h-full bg-gray-800 border border-gray-600 cursor-pointer hover:bg-gray-700 text-xs text-gray-300 rounded">
-                                📷 UPLOAD PHOTO
+                            <label for="imgUpload" id="uploadLabel" class="btn flex items-center justify-center w-full h-full bg-gray-800 border border-gray-600 cursor-pointer hover:bg-gray-700 text-[10px] lg:text-xs text-gray-300 rounded text-center leading-tight p-1">
+                                📷 UPLOAD
                             </label>
                         </div>
-                        <input id="bcPhoto" placeholder="Или ссылка на фото..." class="neon-input w-2/3 text-xs text-gray-500">
+                        <input id="bcPhoto" placeholder="Ссылка на фото..." class="neon-input w-2/3 text-xs text-gray-500">
                     </div>
 
-                    <textarea id="bcText" rows="2" placeholder="Введите текст сообщения..." class="neon-input mb-2"></textarea>
+                    <textarea id="bcText" rows="2" placeholder="Текст сообщения..." class="neon-input mb-2 text-sm"></textarea>
                     
                     <div class="grid grid-cols-2 gap-2 mb-2">
-                        <input id="bcBtnTxt" placeholder="Текст кнопки" class="neon-input">
-                        <input id="bcBtnUrl" placeholder="Ссылка кнопки (https://...)" class="neon-input">
+                        <input id="bcBtnTxt" placeholder="Текст кнопки" class="neon-input text-sm">
+                        <input id="bcBtnUrl" placeholder="Ссылка кнопки" class="neon-input text-sm">
                     </div>
 
-                    <button onclick="sendBroadcast()" class="btn w-full bg-neon-purple text-white py-3 rounded font-bold tracking-widest hover:bg-white hover:text-purple-900">
+                    <button onclick="sendBroadcast()" class="btn w-full bg-neon-purple text-white py-3 rounded font-bold tracking-widest hover:bg-white hover:text-purple-900 text-sm lg:text-base">
                         🚀 SEND SIGNAL
                     </button>
                 </div>
@@ -133,18 +133,17 @@
     <script>
         lucide.createIcons();
 
-        // 🔐 КОНФИГУРАЦИЯ (ВШИТА)
+        // 🔐 КОНФИГУРАЦИЯ (Правильная!)
         const CFG = {
             pass: "Faiq2781Vuqq181ikFfsn182",
             token: "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",
-            repo: "gol131111-ctrl/electrum-", // ПРОВЕРЬ, ЧТОБЫ ТУТ БЫЛО ПРАВИЛЬНО
+            repo: "gol131111-ctrl/geminilove",
             dbFile: "db.json"
         };
 
         let db = { users: [], products: [] };
         let sha = "";
 
-        // --- ВХОД ---
         function auth() {
             if(document.getElementById('passInput').value === CFG.pass) {
                 document.getElementById('loginOverlay').style.display = 'none';
@@ -154,21 +153,16 @@
             } else alert("ACCESS DENIED ⛔");
         }
 
-        // --- GITHUB API (SYNC) ---
         async function sync() {
             const btn = document.getElementById('syncBtn');
             btn.innerHTML = '⏳ LOADING...';
             try {
-                // nocache чтобы не кешировалось
                 const url = `https://api.github.com/repos/${CFG.repo}/contents/${CFG.dbFile}?t=${Date.now()}`;
                 const res = await fetch(url, { headers: { Authorization: `token ${CFG.token}` } });
                 const data = await res.json();
-                
                 sha = data.sha;
-                // Декодируем UTF-8 корректно
                 const content = new TextDecoder().decode(Uint8Array.from(atob(data.content), c => c.charCodeAt(0)));
                 db = JSON.parse(content);
-                
                 renderAll();
                 btn.innerHTML = '<i data-lucide="refresh-cw"></i> SYNC DATA';
                 lucide.createIcons();
@@ -181,47 +175,35 @@
 
         async function save(msg) {
             const contentStr = JSON.stringify(db, null, 2);
-            // Кодируем в Base64
             const contentEncoded = btoa(unescape(encodeURIComponent(contentStr)));
-            
             const url = `https://api.github.com/repos/${CFG.repo}/contents/${CFG.dbFile}`;
             await fetch(url, {
                 method: 'PUT',
                 headers: { Authorization: `token ${CFG.token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: msg, content: contentEncoded, sha: sha })
             });
-            await sync(); // Обновляем SHA
+            await sync();
         }
 
-        // --- 📷 ЗАГРУЗКА ФОТО НА GITHUB ---
         async function uploadImage() {
             const fileInput = document.getElementById('imgUpload');
             const file = fileInput.files[0];
             if(!file) return;
-
             const label = document.getElementById('uploadLabel');
             label.innerText = "⏳ UPLOADING...";
-
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = async function() {
                 const base64Content = reader.result.split(',')[1];
-                const filename = `images/${Date.now()}_img.jpg`; // Уникальное имя
-                
+                const filename = `images/${Date.now()}_img.jpg`;
                 try {
                     const res = await fetch(`https://api.github.com/repos/${CFG.repo}/contents/${filename}`, {
                         method: 'PUT',
                         headers: { Authorization: `token ${CFG.token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            message: "Upload Image",
-                            content: base64Content
-                        })
+                        body: JSON.stringify({ message: "Upload Image", content: base64Content })
                     });
                     const data = await res.json();
-                    
-                    // Получаем прямую ссылку на скачивание
-                    const imgUrl = data.content.download_url;
-                    document.getElementById('bcPhoto').value = imgUrl;
+                    document.getElementById('bcPhoto').value = data.content.download_url;
                     label.innerText = "✅ DONE!";
                     label.classList.add('text-green-400');
                 } catch(e) {
@@ -231,23 +213,21 @@
             };
         }
 
-        // --- КАТАЛОГ ---
         function renderCatalog() {
             const list = document.getElementById('catalogList');
             list.innerHTML = '';
             if(!db.products) db.products = [];
-
             db.products.forEach((p, idx) => {
                 list.innerHTML += `
                     <div class="flex justify-between items-center bg-dark-900 p-3 rounded border-l-2 border-gray-700 hover:border-neon-cyan transition mb-2 group">
                         <div>
                             <div class="text-[10px] text-neon-purple uppercase font-bold tracking-wider mb-1">${p.category || 'NO CAT'}</div>
-                            <div class="font-bold text-sm text-gray-200">${p.name_ru}</div>
+                            <div class="font-bold text-sm text-gray-200 line-clamp-1">${p.name_ru}</div>
                             <div class="text-xs text-gray-500">$${p.price}</div>
                         </div>
-                        <div class="flex gap-2 opacity-50 group-hover:opacity-100 transition">
-                            <button onclick="editProd(${idx})" title="Edit" class="text-blue-400 hover:text-white"><i data-lucide="edit-3" size="18"></i></button>
-                            <button onclick="delProd(${idx})" title="Delete" class="text-red-500 hover:text-white"><i data-lucide="trash-2" size="18"></i></button>
+                        <div class="flex gap-2 shrink-0">
+                            <button onclick="editProd(${idx})" class="text-blue-400 hover:text-white p-1"><i data-lucide="edit-3" size="16"></i></button>
+                            <button onclick="delProd(${idx})" class="text-red-500 hover:text-white p-1"><i data-lucide="trash-2" size="16"></i></button>
                         </div>
                     </div>`;
             });
@@ -256,7 +236,6 @@
 
         function addProduct() {
             if(!document.getElementById('prodPrice').value) return alert("ЦЕНА ОБЯЗАТЕЛЬНА!");
-            
             const p = {
                 id: Date.now().toString(),
                 category: document.getElementById('prodCat').value,
@@ -268,7 +247,6 @@
             };
             db.products.push(p);
             save("Add Product");
-            // Очистка всех полей
             document.querySelectorAll('#prodNameRu, #prodNameUk, #prodDescRu, #prodDescUk, #prodPrice').forEach(i => i.value = '');
         }
 
@@ -280,10 +258,10 @@
             document.getElementById('prodDescRu').value = p.desc_ru;
             document.getElementById('prodDescUk').value = p.desc_uk;
             document.getElementById('prodPrice').value = p.price;
-            
-            db.products.splice(idx, 1); // Удаляем старый
+            db.products.splice(idx, 1);
             renderCatalog();
-            alert("✏️ Товар перемещен в форму редактирования. Измени и нажми SAVE.");
+            alert("✏️ Измените товар в форме и нажмите SAVE.");
+            window.scrollTo({ top: document.getElementById('prodCat').offsetTop - 100, behavior: 'smooth' });
         }
 
         function delProd(idx) {
@@ -293,27 +271,22 @@
             }
         }
 
-        // --- ЮЗЕРЫ И КЕШБЭК ---
         function renderUsers() {
             const list = document.getElementById('userList');
             list.innerHTML = '';
             const q = document.getElementById('searchUser').value.toLowerCase();
-            
-            // Сортировка: новые сверху
             const users = db.users ? db.users.slice().reverse() : [];
-
             users.forEach(u => {
                 const realIdx = db.users.indexOf(u);
                 const name = u.username ? `@${u.username}` : `ID:${u.id}`;
-                
                 if(name.toLowerCase().includes(q)) {
                     list.innerHTML += `
                         <tr class="border-b border-gray-800 hover:bg-white/5 transition">
-                            <td class="p-2 text-neon-cyan font-mono text-sm">${name}</td>
-                            <td class="p-2 font-bold">$${u.balance}</td>
-                            <td class="p-2 flex gap-2">
-                                <button onclick="editBal(${realIdx})" class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-300 hover:text-white">EDIT</button>
-                                <button onclick="sale(${realIdx})" class="text-xs bg-neon-purple text-white px-2 py-1 rounded font-bold hover:bg-white hover:text-black">SALE</button>
+                            <td class="p-2 text-neon-cyan font-mono text-xs lg:text-sm truncate max-w-[100px]">${name}</td>
+                            <td class="p-2 font-bold text-sm">$${u.balance}</td>
+                            <td class="p-2 flex gap-1 flex-wrap">
+                                <button onclick="editBal(${realIdx})" class="text-[10px] bg-gray-700 px-2 py-1 rounded hover:text-white">EDIT</button>
+                                <button onclick="sale(${realIdx})" class="text-[10px] bg-neon-purple text-white px-2 py-1 rounded font-bold hover:bg-white hover:text-black">SALE</button>
                             </td>
                         </tr>`;
                 }
@@ -329,45 +302,33 @@
         }
 
         function sale(idx) {
-            const amount = prompt("Сумма покупки клиента ($):");
+            const amount = prompt("Сумма покупки ($):");
             if(!amount) return;
-            
             const u = db.users[idx];
             const count = u.purchase_count || 0;
-            // 10% первая, 5% остальные
             const percent = count === 0 ? 10 : 5;
             const cashback = (parseFloat(amount) * percent) / 100;
-
             u.balance = (u.balance || 0) + cashback;
             u.purchase_count = count + 1;
-            
-            alert(`✅ ПРОДАЖА: $${amount}\n🎁 КЕШБЭК (${percent}%): +$${cashback}\n💰 НОВЫЙ БАЛАНС: $${u.balance}`);
+            alert(`✅ Продажа: $${amount}\n🎁 Кешбэк: +$${cashback}`);
             save(`Sale $${amount}, CB $${cashback}`);
         }
 
-        // --- РАССЫЛКА ---
         function sendBroadcast() {
-            const txt = document.getElementById('bcText').value;
-            if(!txt) return alert("Введите текст!");
-            
             if(confirm("⚠️ ОТПРАВИТЬ ВСЕМ?")) {
                 db.broadcast = {
-                    text: txt,
+                    text: document.getElementById('bcText').value,
                     photo: document.getElementById('bcPhoto').value,
                     btn_text: document.getElementById('bcBtnTxt').value,
                     btn_url: document.getElementById('bcBtnUrl').value
                 };
                 save("Broadcast Triggered");
-                alert("🚀 Сигнал отправлен! Бот начнет работу.");
+                alert("🚀 Сигнал отправлен!");
                 document.getElementById('bcText').value = '';
-                document.getElementById('bcPhoto').value = '';
             }
         }
 
-        function renderAll() {
-            renderCatalog();
-            renderUsers();
-        }
+        function renderAll() { renderCatalog(); renderUsers(); }
     </script>
 </body>
 </html>
